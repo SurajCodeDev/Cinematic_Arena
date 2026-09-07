@@ -58,6 +58,7 @@ export function ArenaHome() {
           <div className="flex items-center gap-2">
             <button className="hidden size-10 place-items-center border border-border bg-card/50 text-muted-foreground transition hover:border-primary/50 hover:text-primary sm:grid" onClick={() => notify('Notifications are clear')} aria-label="Notifications"><Bell className="size-4" /></button>
             <a href="/sign-in" className="hidden items-center gap-2 border border-border bg-card/50 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground transition hover:border-primary/50 hover:text-primary sm:flex"><Users className="size-4" /> Sign in</a>
+            <a href="/sign-in" className="flex items-center border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-primary transition hover:bg-primary/10 sm:hidden">Login</a>
             <button className="grid size-10 place-items-center border border-border text-muted-foreground lg:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle navigation">{mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}</button>
           </div>
         </div>
