@@ -53,7 +53,7 @@ export function ArenaHome() {
             <span className="text-left"><span className="block font-display text-sm font-bold tracking-[0.2em] text-foreground">NIGHTFALL</span><span className="block font-mono text-[9px] tracking-[0.38em] text-muted-foreground">ARENA / 4.6</span></span>
           </button>
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
-            {navItems.map((item, index) => <a key={item} href={index === 1 ? '#tournaments' : index === 2 ? '#leaderboard' : '#top'} className={`font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-primary ${index === 0 ? 'text-primary' : 'text-muted-foreground'}`}>{item}</a>)}
+            {navItems.map((item, index) => <a key={item} href={index === 1 ? '#tournaments' : index === 2 ? '/leaderboard' : '#top'} className={`font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-primary ${index === 0 ? 'text-primary' : 'text-muted-foreground'}`}>{item}</a>)}
           </nav>
           <div className="flex items-center gap-2">
             <button className="hidden size-10 place-items-center border border-border bg-card/50 text-muted-foreground transition hover:border-primary/50 hover:text-primary sm:grid" onClick={() => notify('Notifications are clear')} aria-label="Notifications"><Bell className="size-4" /></button>
