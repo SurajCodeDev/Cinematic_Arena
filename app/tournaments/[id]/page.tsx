@@ -8,7 +8,13 @@ import { redirect } from 'next/navigation'
 
 export default async function TournamentPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const [event] = await db.select().from(tournaments).where(eq(tournaments.id, Number(id))).limit(1)
+  const [databaseEvent] = await db.select().from(tournaments).where(eq(tournaments.id, Number(id))).limit(1)
+  const demoEvents = {
+    1: { id: 1, title: 'Blood Moon Invitational', mode: 'Squad', map: 'Erangel', status: 'open', prizePool: 25000, entryFee: 99, maxSlots: 100, antiCheat: true },
+    2: { id: 2, title: 'Vampire Solo Hunt', mode: 'Solo', map: 'Livik', status: 'open', prizePool: 8500, entryFee: 0, maxSlots: 500, antiCheat: true },
+    3: { id: 3, title: 'Nightwatch Scrims', mode: 'Squad', map: 'Miramar', status: 'open', prizePool: 50000, entryFee: 249, maxSlots: 64, antiCheat: true },
+  } as const
+  const event = databaseEvent ?? demoEvents[Number(id) as keyof typeof demoEvents]
   if (!event) redirect('/')
   const session = await auth.api.getSession({ headers: await headers() })
   async function register(formData: FormData) {
