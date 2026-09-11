@@ -38,10 +38,14 @@ export const registrations = pgTable('registrations', {
   id: serial('id').primaryKey(), tournamentId: integer('tournament_id').notNull(), userId: text('user_id').notNull(), squadName: text('squad_name'), roster: jsonb('roster').notNull().default([]), paymentStatus: text('payment_status').notNull().default('pending'), shareToken: text('share_token').notNull().unique(), createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
+export const payments = pgTable('payments', {
+  id: serial('id').primaryKey(), registrationId: integer('registration_id').notNull(), userId: text('user_id').notNull(), provider: text('provider').notNull(), amount: integer('amount').notNull(), status: text('status').notNull().default('pending'), providerReference: text('provider_reference'), proofUrl: text('proof_url'), createdAt: timestamp('created_at').notNull().defaultNow(), updatedAt: timestamp('updated_at').notNull().defaultNow(),
+})
+
 export const auditEvents = pgTable('audit_events', {
   id: serial('id').primaryKey(), actorUserId: text('actor_user_id').notNull(), action: text('action').notNull(), entityType: text('entity_type').notNull(), entityId: text('entity_id').notNull(), metadata: jsonb('metadata').notNull().default({}), createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
-export const schema = { user, session, account, verification, tournaments, registrations, auditEvents }
+export const schema = { user, session, account, verification, tournaments, registrations, payments, auditEvents }
 export type Tournament = typeof tournaments.$inferSelect
 export type Registration = typeof registrations.$inferSelect
