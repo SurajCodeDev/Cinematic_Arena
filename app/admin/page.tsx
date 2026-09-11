@@ -1,15 +1,15 @@
 import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { tournaments } from '@/lib/db/schema'
-import { desc } from 'drizzle-orm'
+import { tournaments, user } from '@/lib/db/schema'
+import { desc, eq } from 'drizzle-orm'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) redirect('/sign-in')
-  const role = (session.user as { role?: string }).role
-  if (role !== 'admin') redirect('/dashboard')
+  const [operator] = await db.select({ role: user.role }).from(user).where(eq(user.id, session.user.id)).limit(1)
+  if (operator?.role !== 'admin') redirect('/dashboard')
   const events = await db.select().from(tournaments).orderBy(desc(tournaments.startsAt)).limit(8)
 
   return (
